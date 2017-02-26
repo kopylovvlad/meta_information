@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/kopylovvlad/meta_information'
   s.license     = 'MIT'
 
-  s.add_dependency('nokogiri')
+  s.add_dependency('nokogiri', '~> 1.7', '>= 1.7.0')
 end
