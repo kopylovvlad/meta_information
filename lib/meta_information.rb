@@ -1,4 +1,4 @@
-require './lib/meta_information/version'
+require 'meta_information/version'
 require 'nokogiri'
 require 'open-uri'
 
