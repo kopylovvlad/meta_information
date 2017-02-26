@@ -1,4 +1,4 @@
-require './lib/meta_info'
+require './lib/meta_information'
 
 RSpec.describe 'MetaInformation' do
   
