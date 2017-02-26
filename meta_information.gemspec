@@ -12,4 +12,6 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split("\n")
   s.homepage    = 'https://github.com/kopylovvlad/meta_information'
   s.license     = 'MIT'
+
+  s.add_dependency('nokogiri')
 end
