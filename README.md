@@ -1,4 +1,6 @@
 # MetaInformation
+[![Gem Version](https://badge.fury.io/rb/meta_information.svg)](https://badge.fury.io/rb/meta_information)
+
 Simple gem for parsing meta information from websites. It scan all meta-tags by name or property attributes.
 ## Instalation
 Add this line to your application's Gemfile:
