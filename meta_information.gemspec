@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.version     = MetaInformation::VERSION
   s.date        = '2017-02-26'
   s.summary     = 'MetaInformation - Simple gem for parsing meta information'
-  s.description = 'MetaInformation - Simple gem for parsing meta information'
-  s.authors     = ['Vladislav Kopylov']
+  s.description = 'Simple gem for parsing meta information from websites. It scan all meta-tags by name or property attributes.'
+  s.author      = 'Vladislav Kopylov'
   s.email       = 'kopylov.vlad@gmail.com'
-  s.files       = ['lib/meta_information.rb']
-  s.homepage    = 'http://rubygems.org/gems/meta_information'
+  s.files       = `git ls-files`.split("\n")
+  s.homepage    = 'https://github.com/kopylovvlad/meta_information'
   s.license     = 'MIT'
 end
