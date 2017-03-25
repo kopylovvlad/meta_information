@@ -23,14 +23,17 @@ pp meta
 # :all_meta=>
 #  [{:type=>"name",
 #    :name=>"viewport",
+#    :property=>nil,
 #    :content=>"width=device-width, initial-scale=1.0"},
-#   {:type=>"name", :name=>"description", :content=>"some description"},
-#   {:type=>"name", :name=>"title", :content=>"i am title"},
-#   {:type=>"name", :name=>"og:title", :content=>"some content"},
-#   {:type=>"name", :name=>"og:description", :content=>"some description"},
+#   {:type=>"name", :name=>"description", :property=>nil, :content=>"some description"},
+#   {:type=>"name", :name=>"title", :property=>nil, :content=>"i am title"},
+#   {:type=>"name", :name=>"og:title", :property=>nil, :content=>"some content"},
+#   {:type=>"name", :name=>"og:description", :property=>nil, :content=>"some description"},
 #   {:type=>"name",
 #    :name=>"og:image",
-#    :content=> "https://www.awesome_site.com/assets/awesome_picture.jpg"}]}
+#    :property=>nil,
+#    :content=> "https://www.awesome_site.com/assets/awesome_picture.jpg"}]},
+#   {:type=>"property", :name=>nil, :property=>"fb:app_id", :content=>"1234567890"},
 ###
 ```
 ## License
