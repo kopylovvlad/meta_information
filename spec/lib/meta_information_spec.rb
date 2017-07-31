@@ -147,6 +147,14 @@ RSpec.describe 'MetaInformation' do
       expect(MetaInformation.send(:node_type, node)).to eq('property')
     end
 
+    it 'must return property' do
+      document = Nokogiri::HTML(
+        '<meta itemprop="description" content="description" />'
+      )
+      node = document.css('meta').first
+      expect(MetaInformation.send(:node_type, node)).to eq('itemprop')
+    end
+
     it 'must return empty string' do
       document = Nokogiri::HTML('<meta content="og_title" />')
       node = document.css('meta').first

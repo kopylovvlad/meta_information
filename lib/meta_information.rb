@@ -28,7 +28,8 @@ module MetaInformation
         type: node_type(node),
         name: node['name'],
         property: node['property'],
-        content: node['content']
+        content: node['content'],
+        itemprop: node['itemprop']
       )
     end
     array
@@ -39,6 +40,8 @@ module MetaInformation
       'name'
     elsif !node['property'].nil?
       'property'
+    elsif !node['itemprop'].nil?
+      'itemprop'
     else
       ''
     end
