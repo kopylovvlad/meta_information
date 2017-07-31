@@ -22,14 +22,14 @@ module MetaInformation
   private
 
   def create_meta_array(document)
-    return document.css('meta').map do |node|
+    document.css('meta').map do |node|
       {
         type: node_type(node),
         name: node['name'],
         property: node['property'],
         content: node['content'],
         itemprop: node['itemprop']
-      )
+      }
     end
   end
 
