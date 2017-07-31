@@ -22,9 +22,8 @@ module MetaInformation
   private
 
   def create_meta_array(document)
-    array = []
-    document.css('meta').each do |node|
-      array.push(
+    return document.css('meta').map do |node|
+      {
         type: node_type(node),
         name: node['name'],
         property: node['property'],
@@ -32,7 +31,6 @@ module MetaInformation
         itemprop: node['itemprop']
       )
     end
-    array
   end
 
   def node_type(node)
