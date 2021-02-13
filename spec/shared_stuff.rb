@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context 'shared stuff', shared_context: :metadata do
   let(:default_html) do
     '

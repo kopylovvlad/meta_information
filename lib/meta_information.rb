@@ -1,16 +1,18 @@
-require 'meta_information/version'
-require 'nokogiri'
-require 'open-uri'
+# frozen_string_literal: true
 
-# MetaInformation - module for scaning meta information
-# form web page
-# for usage
+require_relative 'meta_information/version'
+require 'nokogiri'
+require 'uri'
+require 'net/http'
+
+# MetaInformation - module for scaning meta information from web page
 # MetaInformation.get_meta('https://some_site.com/some_page')
 module MetaInformation
   extend self
 
   def get_meta(input_url)
     return not_valid_url_error unless valid_url?(input_url)
+    return not_valid_url_scheme unless valid_url_scheme?(input_url)
 
     document = create_document(input_url)
     return nokogiri_error if document == false
@@ -21,16 +23,19 @@ module MetaInformation
 
   private
 
+  # TODO: change to struct
   def create_meta_array(document)
-    document.css('meta').map do |node|
-      {
-        type: node_type(node),
-        name: node['name'],
-        property: node['property'],
-        content: node['content'],
-        itemprop: node['itemprop']
-      }
-    end
+    document
+      .css('meta').reject { |node| node_type(node).nil? }
+      .map do |node|
+        {
+          type: node_type(node),
+          name: node['name'],
+          property: node['property'],
+          content: node['content'],
+          itemprop: node['itemprop']
+        }
+      end
   end
 
   def node_type(node)
@@ -41,17 +46,28 @@ module MetaInformation
     elsif !node['itemprop'].nil?
       'itemprop'
     else
-      ''
+      nil
     end
   end
 
   def valid_url?(uri)
-    !(uri =~ URI.regexp).nil?
+    !(uri =~ URI::DEFAULT_PARSER.make_regexp).nil?
+  end
+
+  def valid_url_scheme?(input_url)
+    URI(input_url).is_a?(URI::HTTP)
   end
 
   def create_document(input_url)
-    Nokogiri::HTML(open(input_url))
-  rescue
+    uri = URI(input_url)
+    res = Net::HTTP.get_response(uri)
+
+    raise 'Response code is not 2xx' if !(res.code.to_i >= 200 && res.code.to_i <= 299)
+    raise 'Response is without body' unless res.class.body_permitted?
+
+    Nokogiri::HTML(res.body)
+  rescue StandardError => e
+    puts e
     false
   end
 
@@ -59,6 +75,13 @@ module MetaInformation
     {
       success: false,
       error: 'url is not valid'
+    }
+  end
+
+  def not_valid_url_scheme
+    {
+      success: false,
+      error: 'url must be http(s)'
     }
   end
 

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require './lib/meta_information'
-require './spec/shared_stuff.rb'
-require './spec/config.rb'
+require './spec/shared_stuff'
+require './spec/config'
 
 RSpec.describe 'MetaInformation' do
   include_context 'shared stuff'
@@ -14,6 +16,13 @@ RSpec.describe 'MetaInformation' do
           success: false,
           error: 'url is not valid'
         )
+      )
+    end
+
+    it 'should return not_valid_url_scheme_error' do
+      result = MetaInformation.get_meta('ftp://some_url.com')
+      expect(result).to(
+        eq(success: false, error: 'url must be http(s)')
       )
     end
 
@@ -112,23 +121,23 @@ RSpec.describe 'MetaInformation' do
   describe 'private hash equal' do
     it 'not_valid_url_error hash' do
       expect(MetaInformation.send(:not_valid_url_error)).to eq({
-        success: false,
-        error: 'url is not valid'
-      })
+                                                                 success: false,
+                                                                 error: 'url is not valid'
+                                                               })
     end
 
     it 'nokogiri_error hash' do
       expect(MetaInformation.send(:nokogiri_error)).to eq({
-        success: false,
-        error: 'error with parsing a document'
-      })
+                                                            success: false,
+                                                            error: 'error with parsing a document'
+                                                          })
     end
 
     it 'success_hash hash' do
       expect(MetaInformation.send(:success_hash)).to eq({
-        succes: 'true',
-        error: ''
-      })
+                                                          succes: 'true',
+                                                          error: ''
+                                                        })
     end
   end
 
@@ -155,10 +164,10 @@ RSpec.describe 'MetaInformation' do
       expect(MetaInformation.send(:node_type, node)).to eq('itemprop')
     end
 
-    it 'must return empty string' do
+    it 'must return nil' do
       document = Nokogiri::HTML('<meta content="og_title" />')
       node = document.css('meta').first
-      expect(MetaInformation.send(:node_type, node)).to eq('')
+      expect(MetaInformation.send(:node_type, node)).to eq(nil)
     end
   end
 end
